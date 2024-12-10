@@ -9,24 +9,23 @@ function App() {
     formState: { errors },
   } = useForm();
   const [date, setDate] = useState(null);
+  const [message, setMessage] = useState("");
 
   const onSubmit = async (data) => {
-    // Merge form data with Datepicker value
     const formData = { ...data, date };
 
-    // Send the data to your API
     try {
-      const response = await fetch("/api/create", {
+      const res = await fetch("/api/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
-      
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Success:", result);
+
+      if (res.ok) {
+        const result = await res.json();
+        setMessage(result.message);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -124,6 +123,11 @@ function App() {
               Отправить
             </button>
           </div>
+          {message && (
+            <div className="w-full p-3 font-bold bg-green-300 rounded-2xl text-white">
+              {message}
+            </div>
+          )}
         </form>
       </div>
     </>

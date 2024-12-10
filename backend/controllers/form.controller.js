@@ -14,7 +14,7 @@ export const create = async (req, res, next) => {
       [sum, category, comment, author, formattedDate]
     );
 
-    res.status(200).json({ message: "Success!", id: result.insertId });
+    res.status(200).json({ message: "Усепшно сохранено! Чтобы проверить все данные в базе данных, перейдите по пути в url - /api/all" });
   } catch (error) {
     console.error("Error saving data:", error);
     res.status(500).json({ message: "Server Error" });
